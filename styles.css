@@ -192,6 +192,7 @@ section { scroll-margin-top: 90px; }
   color: var(--black);
   transform: rotate(-1.5deg);
   position: relative;
+  z-index: 1;                       /* isolate plate + tag from the hero burst */
 }
 /* White plate background lives on a pseudo-element so the
    "Phantom Thief" tag can overflow without being clipped */
@@ -204,6 +205,8 @@ section { scroll-margin-top: 90px; }
   z-index: -1;
 }
 .name {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
   font-size: clamp(3.2rem, 9vw, 7rem);
   line-height: .92;
@@ -222,6 +225,7 @@ section { scroll-margin-top: 90px; }
   color: var(--white);
   background: var(--red);
   transform: rotate(6deg);
+  z-index: 2;
 }
 
 /* Headline — sticker letters */
