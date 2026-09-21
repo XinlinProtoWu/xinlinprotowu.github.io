@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A single-page portfolio template inspired by the Persona 5 UI." />
+  <title>PHANTOM THIEF — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+
+  <!-- ============================================================
+       NAVIGATION — fixed diagonal band anchored to the top-right
+       ============================================================ -->
+  <header class="site-nav">
+    <a class="nav-brand" href="#top" aria-label="Back to top">P5<span>//</span></a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO — call sign, name plate, headline, social stickers
+         ============================================================ -->
+    <section class="hero" aria-label="Introduction">
+      <div class="burst" aria-hidden="true"></div>
+      <div class="hero__inner">
+
+        <p class="call-sign">— Call Sign —</p>
+
+        <div class="name-plate">
+          <h1 class="name">XINLIN<br />WU</h1>
+          <span class="name-tag">Phantom Thief</span>
+        </div>
+
+        <!-- High-energy headline with sticker letter cutouts -->
+        <h2 class="headline" aria-label="Take your heart">
+          <span class="st st-w">T</span><span class="st st-r">A</span><span class="st st-b">K</span><span class="st st-w">E</span>
+          <span class="st st-space" aria-hidden="true">&nbsp;</span>
+          <span class="st st-b">Y</span><span class="st st-w">O</span><span class="st st-r">U</span><span class="st st-b">R</span>
+          <span class="st st-space" aria-hidden="true">&nbsp;</span>
+          <span class="st st-r">H</span><span class="st st-b">E</span><span class="st st-w">A</span><span class="st st-r">R</span><span class="st st-b">T</span>
+        </h2>
+
+        <p class="hero__sub">
+          Computers are cool :)
+        </p>
+
+        <!-- Social links styled as dynamic stickers -->
+        <ul class="stickers" aria-label="Social links">
+          <li><a class="sticker s-red" href="https://github.com/XinlinProtoWu" target="_blank" rel="noopener" aria-label="GitHub">GH</a></li>
+          <li><a class="sticker s-white" href="https://www.linkedin.com/in/xinlin-wu" target="_blank" rel="noopener" aria-label="LinkedIn">IN</a></li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT / STATS — radar chart + skill bars
+         ============================================================ -->
+    <section class="about has-halftone" id="about" aria-label="About and stats">
+      <div class="section-head">
+        <h2 class="section-title"><span class="cut cut-b">About...</span> <span class="cut cut-r">XINLIN</span> <span class="cut cut-w">WU!</span></h2>
+        <p class="section-lede">
+          I'm an Electrical and Computer Engineering student at the Unviersity of Toronto. I am passionate about low-level programming, embedded systems, and linux. Currently expanding my horizons on an academic exchange at the Hong Kong University of Science and Technology!        </p>
+      </div>
+
+      <!-- Jagged speech bubble -->
+      <blockquote class="bubble">
+        <p>“I am thou, thou art I… Git commit and write some lines.”</p>
+        <cite>— The Phantom</cite>
+      </blockquote>
+
+      <div class="about__grid" id="stats">
+
+        <!-- Persona-style radar chart -->
+        <div class="radar-wrap">
+          <div class="radar" role="img"
+               aria-label="Radar chart of core skills — C/C++ strongest, followed by Python, Java, Assembly and Verilog">
+            <!-- Concentric pentagon rings -->
+            <i class="ring" style="--s:100%" aria-hidden="true"></i>
+            <i class="ring" style="--s:78%"  aria-hidden="true"></i>
+            <i class="ring" style="--s:56%"  aria-hidden="true"></i>
+            <i class="ring" style="--s:34%"  aria-hidden="true"></i>
+            <i class="ring" style="--s:12%"  aria-hidden="true"></i>
+
+            <!-- Spokes (clipped to the pentagon) -->
+            <span class="spokes" aria-hidden="true">
+              <i class="spoke" style="--a:0deg"></i>
+              <i class="spoke" style="--a:72deg"></i>
+              <i class="spoke" style="--a:144deg"></i>
+              <i class="spoke" style="--a:216deg"></i>
+              <i class="spoke" style="--a:288deg"></i>
+            </span>
+
+            <!-- Data shape + vertex markers -->
+            <i class="data" aria-hidden="true"></i>
+            <i class="dot" style="--x:50%;  --y:2.5%"  aria-hidden="true"></i>
+            <i class="dot" style="--x:89%;  --y:40.6%" aria-hidden="true"></i>
+            <i class="dot" style="--x:72.3%;--y:86%"   aria-hidden="true"></i>
+            <i class="dot" style="--x:26.8%;--y:87.5%" aria-hidden="true"></i>
+            <i class="dot" style="--x:19%;  --y:42.6%" aria-hidden="true"></i>
+          </div>
+
+          <!-- Axis labels -->
+          <b class="rlabel rl-top">C / C++</b>
+          <b class="rlabel rl-right">Python</b>
+          <b class="rlabel rl-br">Java</b>
+          <b class="rlabel rl-bl">Assembly</b>
+          <b class="rlabel rl-left">Verilog</b>
+        </div>
+
+        <!-- Skill bars (relative length, no numbers) -->
+        <div class="bars">
+          <h3 class="bars__title"><span class="cut cut-r">Skill</span> <span class="cut cut-b">Set</span></h3>
+
+          <div class="bar bar--lead">
+            <div class="bar__meta"><span>C / C++</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:95%"></i></div>
+          </div>
+
+          <div class="bar">
+            <div class="bar__meta"><span>Python</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:78%"></i></div>
+          </div>
+
+          <div class="bar">
+            <div class="bar__meta"><span>Java</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:72%"></i></div>
+          </div>
+
+          <div class="bar">
+            <div class="bar__meta"><span>Git / Linux</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:75%"></i></div>
+          </div>
+
+          <div class="bar">
+            <div class="bar__meta"><span>Assembly</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:75%"></i></div>
+          </div>
+
+          <div class="bar">
+            <div class="bar__meta"><span>Verilog</span></div>
+            <div class="bar__track"><i class="bar__fill" style="--value:62%"></i></div>
+          </div>
+
+          <p class="bars__tools"><span class="cut cut-w">Also</span> KiCad · EasyEDA · AutoCAD · cURL · Soldering</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS — grid of diagonal cutout cards
+         ============================================================ -->
+    <section class="projects" id="projects" aria-label="Projects">
+      <div class="section-head">
+        <h2 class="section-title"><span class="cut cut-b">Heists</span> <span class="cut cut-r">&amp;</span> <span class="cut cut-b">Cases</span></h2>
+        <p class="section-lede">Selected work — low-level software and custom hardware. (See GitHub for more details.)</p>
+      </div>
+
+      <div class="cards">
+        <!-- Card 1 -->
+        <article class="card">
+          <figure class="card__thumb" aria-hidden="true"><span>01</span></figure>
+          <div class="card__body">
+            <h3 class="card__title">Gameboy Advance Emulator</h3>
+            <p class="card__meta">ARMv4T Emulator · C++ · May 2026</p>
+            <p class="card__text">Engineered an ARM7TDMI CPU core with dynamic ARM/THUMB state switching, a multi-stage pipeline and a centralized Memory Bus. Passing the first 152 ARM instruction tests from jsmolka/gba-tests.</p>
+            <ul class="tags">
+              <li>C++</li><li>ARM7TDMI</li><li>Emulation</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <figure class="card__thumb" aria-hidden="true"><span>02</span></figure>
+          <div class="card__body">
+            <h3 class="card__title">prototypeCarbon</h3>
+            <p class="card__meta">Keyboard Project · June 2025</p>
+            <p class="card__text">Designed and routed a fully custom mechanical keyboard PCB in EasyEDA from chip datasheets, then hand-soldered components and debugged hardware shorts against the schematics.</p>
+            <ul class="tags">
+              <li>EasyEDA</li><li>PCB</li><li>Soldering</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <figure class="card__thumb" aria-hidden="true"><span>03</span></figure>
+          <div class="card__body">
+            <h3 class="card__title">PAIMAP</h3>
+            <p class="card__meta">C++ Mapping Software · ECE297 · Feb–May 2026</p>
+            <p class="card__text">Built a geographic mapping app using Dijkstra's and greedy algorithms for multi-stop routing — beating course benchmarks by 5%. Integrated the Gemini API via cURL for natural-language search.</p>
+            <ul class="tags">
+              <li>C++</li><li>Algorithms</li><li>Gemini API</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <figure class="card__thumb" aria-hidden="true"><span>04</span></figure>
+          <div class="card__body">
+            <h3 class="card__title">Music Menace V2</h3>
+            <p class="card__meta">Music Player · Java Swing · May 2024</p>
+            <p class="card__text">Built a Java Swing music player with login and playlist management, and automated YouTube audio downloads, .wav conversion and metadata extraction with Python's yt_dlp, FFMPEG and TinyTag.</p>
+            <ul class="tags">
+              <li>Java</li><li>Python</li><li>FFMPEG</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p>© 2026 XINLIN WU — <span>Do something stupid and learn from it.</span></p>
+  </footer>
+
+</body>
+</html>

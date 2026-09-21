@@ -1,0 +1,661 @@
+/* ==========================================================================
+   PERSONA 5 — PORTFOLIO TEMPLATE
+   Pure HTML5 + CSS3. No frameworks, no JavaScript.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   FONTS
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   DESIGN TOKENS (colors, angles, shapes)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Palette */
+  --red:       #e60012;
+  --red-dark:  #d31027;
+  --black:     #000000;
+  --charcoal:  #121212;
+  --white:     #ffffff;
+  --off-white: #f2f2f2;
+
+  /* Type */
+  --font-display: 'Bebas Neue', 'Arial Narrow', Impact, 'Arial Black', sans-serif;
+  --font-body:    'Oswald', 'Arial Narrow', Arial, sans-serif;
+
+  /* Transforms */
+  --rotate: -2deg;
+  --skew:   -5deg;
+  --slant:  60px;            /* size of the diagonal section breaks */
+
+  /* Shapes */
+  --clip-nav: polygon(0 0, 100% 0, 100% 100%, 0 92%);
+  --clip-btn: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  --clip-card: polygon(0 0, 100% 0, 100% calc(100% - 34px), 0 100%);
+  --clip-bubble: polygon(
+    0% 0%, 96% 0%, 100% 8%, 100% 88%, 92% 100%, 0% 100%, 8% 60%,
+    0% 62% );
+  --pentagon: polygon(50% 0%, 100% 38%, 81% 100%, 19% 100%, 0% 38%);
+
+  /* Halftone dot grids */
+  --halftone-white: radial-gradient(circle, rgba(255, 255, 255, .14) 1.2px, transparent 1.3px);
+  --halftone-red:   radial-gradient(circle, rgba(230, 0, 18, .22) 1.2px, transparent 1.3px);
+}
+
+/* --------------------------------------------------------------------------
+   RESET / BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img, svg { display: block; max-width: 100%; }
+
+/* Anchor offset for fixed nav */
+section { scroll-margin-top: 90px; }
+
+/* Halftone sections need a positioned context for the overlay */
+.has-halftone,
+.has-halftone--red { position: relative; }
+
+/* Reusable halftone overlay (placed on sections) */
+.has-halftone::before,
+.has-halftone--red::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: 18px 18px;
+  pointer-events: none;
+  z-index: 1;
+}
+.has-halftone::before     { background-image: var(--halftone-white); }
+.has-halftone--red::before { background-image: var(--halftone-red); }
+
+/* --------------------------------------------------------------------------
+   NAVIGATION — fixed diagonal top-right band
+   -------------------------------------------------------------------------- */
+.site-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 10px 26px 14px 64px;
+  background: var(--red);
+  clip-path: var(--clip-nav);
+  box-shadow: -8px 8px 0 rgba(0, 0, 0, .35);
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--black);
+  transform: rotate(-3deg);
+}
+.nav-brand span { color: var(--white); }
+
+.nav-list {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-list a {
+  display: inline-block;
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--black);
+  transform: rotate(1.5deg) skew(var(--skew));
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+.nav-list li:nth-child(even) a { transform: rotate(-1.5deg) skew(var(--skew)); }
+
+.nav-list a:hover {
+  background: var(--white);
+  color: var(--black);
+  transform: rotate(0deg) skew(0deg);
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--black);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--slant)), 0 100%);
+  overflow: hidden;
+  padding: 120px 5vw 120px;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  width: min(1080px, 100%);
+  margin-inline: auto;
+}
+
+/* Radial starburst behind the hero */
+.burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140vmax;
+  height: 140vmax;
+  transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(
+    rgba(230, 0, 18, .12) 0deg 6deg,
+    transparent 6deg 18deg
+  );
+  animation: spin 40s linear infinite;
+  pointer-events: none;
+}
+@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.call-sign {
+  display: inline-block;
+  font-family: var(--font-display);
+  letter-spacing: 6px;
+  color: var(--red);
+  background: var(--white);
+  padding: 2px 14px;
+  transform: rotate(-2deg) skew(var(--skew));
+}
+
+/* Name plate */
+.name-plate {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 18px 30px 24px;
+  background: var(--white);
+  color: var(--black);
+  clip-path: var(--clip-card);
+  transform: rotate(-1.5deg);
+  position: relative;
+}
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  line-height: .92;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.name-tag {
+  position: absolute;
+  right: -14px;
+  bottom: 26px;
+  padding: 6px 12px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--red);
+  transform: rotate(6deg);
+}
+
+/* Headline — sticker letters */
+.headline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 46px 0 22px;
+}
+.st {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1ch;
+  padding: 6px 10px;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, .45);
+}
+/* Alternating high-contrast sticker colors */
+.st-w { background: var(--white); color: var(--black); }
+.st-b { background: var(--black); color: var(--white); outline: 2px solid var(--white); }
+.st-r { background: var(--red);  color: var(--white); }
+.st-space { background: transparent; box-shadow: none; min-width: .45ch; }
+
+/* Skew / rotate letters for a scattered, energetic look */
+.headline .st:nth-child(3n+1) { transform: rotate(-3deg) skew(var(--skew)); }
+.headline .st:nth-child(3n+2) { transform: rotate(2deg)  skew(var(--skew)); }
+.headline .st:nth-child(3n)   { transform: rotate(-1deg) skew(var(--skew)); }
+
+.hero__sub {
+  max-width: 52ch;
+  font-size: 1.05rem;
+  letter-spacing: .5px;
+  color: var(--off-white);
+}
+
+/* Social stickers */
+.stickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+.sticker {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, .5);
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+.s-red   { background: var(--red);   }
+.s-white { background: var(--white); color: var(--black); }
+.s-black { background: var(--black); border-color: var(--white); }
+.sticker:nth-child(odd)  { transform: rotate(-4deg); }
+.sticker:nth-child(even) { transform: rotate(4deg);  }
+.sticker:hover { transform: rotate(0) scale(1.08); background: var(--black); color: var(--white); border-color: var(--red); }
+
+/* --------------------------------------------------------------------------
+   SHARED SECTION HEADINGS / "CUTOUT" BOXES
+   -------------------------------------------------------------------------- */
+.section-head { margin-bottom: 46px; }
+.section-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(var(--rotate)) skew(var(--skew));
+  transform-origin: left center;
+}
+.cut {
+  display: inline-block;
+  padding: 2px 14px 6px;
+  clip-path: var(--clip-btn);
+}
+.cut-b {
+  background: var(--black);
+  color: var(--white);
+  filter: drop-shadow(2px 0 0 var(--white))
+          drop-shadow(-2px 0 0 var(--white))
+          drop-shadow(0 2px 0 var(--white))
+          drop-shadow(0 -2px 0 var(--white));
+}
+.cut-w { background: var(--white); color: var(--black); }
+.cut-r { background: var(--red);  color: var(--white); }
+
+.section-lede {
+  max-width: 60ch;
+  margin-top: 18px;
+  font-size: 1.02rem;
+  color: var(--off-white);
+}
+
+/* --------------------------------------------------------------------------
+   ABOUT / STATS
+   -------------------------------------------------------------------------- */
+.about {
+  position: relative;
+  margin-top: calc(-1 * var(--slant));
+  padding: calc(var(--slant) + 60px) 5vw 120px;
+  background: var(--charcoal);
+  clip-path: polygon(0 var(--slant), 100% 0, 100% calc(100% - var(--slant)), 0 100%);
+}
+.about > * { position: relative; z-index: 2; }
+
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 440px) 1fr;
+  gap: clamp(40px, 6vw, 90px);
+  align-items: center;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+/* Jagged speech bubble (outline follows the clip-path via drop-shadow) */
+.bubble {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  margin-bottom: 60px;
+  padding: 26px 30px 30px;
+  background: var(--black);
+  color: var(--white);
+  clip-path: var(--clip-bubble);
+  transform: rotate(-1deg);
+  filter: drop-shadow(3px 0 0 var(--red))
+          drop-shadow(-3px 0 0 var(--red))
+          drop-shadow(0 3px 0 var(--red))
+          drop-shadow(0 -3px 0 var(--red));
+}
+.bubble p {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.bubble cite {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 2px 10px;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-style: normal;
+  letter-spacing: 2px;
+  color: var(--red);
+  background: var(--white);
+  transform: rotate(-2deg);
+}
+
+/* --- Radar chart (pure CSS pentagon) --- */
+.radar-wrap {
+  position: relative;
+  width: min(430px, 100%);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.radar { position: absolute; inset: 0; }
+
+.radar .ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--s);
+  height: var(--s);
+  background: rgba(255, 255, 255, .22);
+  clip-path: var(--pentagon);
+}
+.radar .ring::after {
+  content: '';
+  position: absolute;
+  inset: 7px;               /* ring thickness */
+  background: var(--charcoal);
+  clip-path: var(--pentagon);
+}
+
+/* Spokes are clipped to the pentagon so they terminate at the vertices */
+.spokes {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--pentagon);
+}
+.spoke {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;              /* pivot at the chart centre, pointing up */
+  width: 2px;
+  height: 80%;
+  background: rgba(255, 255, 255, .22);
+  transform-origin: 50% 100%;
+  transform: translateX(-50%) rotate(var(--a));
+}
+
+/* The data polygon (values mapped to the 5 axes) */
+.data {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 2.5%, 89% 40.6%, 72.3% 86%, 26.8% 87.5%, 19% 42.6%);
+  background: rgba(230, 0, 18, .4);
+}
+/* Vertex markers */
+.dot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 10px;
+  height: 10px;
+  background: var(--red);
+  border: 2px solid var(--white);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Axis labels */
+.rlabel {
+  position: absolute;
+  padding: 2px 8px;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--black);
+  outline: 1px solid var(--white);
+}
+.rl-top   { top: -12px;  left: 50%;   transform: translateX(-50%) rotate(-2deg); }
+.rl-right { top: 38%;    left: 100%;  transform: translate(8px, -50%) rotate(2deg); }
+.rl-br    { top: 100%;   left: 74%;   transform: translate(0, -6px) rotate(-2deg); }
+.rl-bl    { top: 100%;   left: 20%;   transform: translate(0, -6px) rotate(2deg); }
+.rl-left  { top: 38%;    left: 0;     transform: translate(calc(-100% - 8px), -50%) rotate(-2deg); }
+
+/* --- Stat bars (relative length only) --- */
+.bars__title {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 34px;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+}
+.bar { margin-bottom: 26px; }
+.bar__meta {
+  display: flex;
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.bar--lead .bar__meta span { color: var(--red); }
+
+.bar__track {
+  height: 22px;
+  background: var(--black);
+  border: 2px solid var(--white);
+  clip-path: var(--clip-btn);
+  padding: 3px;
+}
+.bar__fill {
+  display: block;
+  height: 100%;
+  width: var(--value);
+  background: linear-gradient(90deg, var(--red-dark), var(--red));
+  clip-path: var(--clip-btn);
+  transform-origin: left center;
+  animation: grow 1.1s cubic-bezier(.2, .8, .2, 1) both;
+}
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.bars__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   PROJECTS
+   -------------------------------------------------------------------------- */
+.projects {
+  margin-top: calc(-1 * var(--slant));
+  padding: calc(var(--slant) + 60px) 5vw 120px;
+  background: var(--white);
+  color: var(--black);
+  clip-path: polygon(0 var(--slant), 100% 0, 100% 100%, 0 100%);
+}
+.projects .section-lede { color: #333; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(26px, 4vw, 46px);
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.card {
+  position: relative;
+  background: var(--black);
+  color: var(--white);
+  border: 3px solid var(--black);
+  clip-path: var(--clip-card);
+  transition: transform .2s ease;
+}
+.card:hover { transform: translateY(-6px) rotate(-.5deg); }
+
+.card__thumb {
+  position: relative;
+  height: 170px;
+  background:
+    var(--halftone-white),
+    linear-gradient(135deg, var(--charcoal) 0%, #2a2a2a 100%);
+  background-size: 18px 18px, cover;
+  border-bottom: 3px solid var(--red);
+}
+.card__thumb::after {   /* red diagonal sweep */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 62%, rgba(230, 0, 18, .35) 62.5%, transparent 63%);
+}
+.card__thumb span {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  color: rgba(255, 255, 255, .18);
+  transform: rotate(-4deg);
+}
+
+.card__body { padding: 22px 24px 30px; }
+.card__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transform: rotate(-1deg) skew(var(--skew));
+  transform-origin: left center;
+}
+.card__meta {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: .92rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.card__text {
+  margin: 14px 0 18px;
+  font-size: .98rem;
+  color: #d9d9d9;
+}
+
+/* Tag badges */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags li {
+  padding: 3px 10px;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: var(--white);
+  color: var(--black);
+  transform: rotate(-2deg);
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.tags li:nth-child(even) { transform: rotate(2deg); }
+.card:hover .tags li { background: var(--red); color: var(--white); }
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+  padding: 28px 5vw;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--white);
+  color: var(--black);
+}
+.footer span { color: var(--red); }
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — tablet
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .site-nav { gap: 14px; padding: 8px 14px 12px 40px; }
+  .nav-list { gap: 8px; }
+  .nav-list a { font-size: 1rem; padding: 4px 8px; }
+
+  .about__grid { grid-template-columns: 1fr; }
+  .radar-wrap { max-width: 400px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  :root { --slant: 40px; }
+
+  /* Nav becomes a full-width tilted strip */
+  .site-nav {
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+    padding: 8px 12px 14px;
+  }
+  .nav-list { gap: 4px; }
+  .nav-list a { font-size: .85rem; padding: 4px 6px; }
+
+  .hero { padding: 130px 5vw 100px; }
+  .name { font-size: clamp(2.6rem, 15vw, 4rem); }
+  .headline { gap: 5px; }
+  .st { padding: 4px 7px; }
+  .sticker { width: 54px; height: 54px; font-size: 1.2rem; }
+
+  .cards { grid-template-columns: 1fr; }
+
+  /* Labels tuck inside for narrow screens */
+  .rl-right { left: 96%; }
+  .rl-left  { left: 4%; }
+  .rl-br { left: 66%; }
+  .rl-bl { left: 8%;  }
+}
