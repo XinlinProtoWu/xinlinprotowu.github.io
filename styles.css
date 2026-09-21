@@ -189,11 +189,19 @@ section { scroll-margin-top: 90px; }
   display: inline-block;
   margin-top: 22px;
   padding: 18px 30px 24px;
-  background: var(--white);
   color: var(--black);
-  clip-path: var(--clip-card);
   transform: rotate(-1.5deg);
   position: relative;
+}
+/* White plate background lives on a pseudo-element so the
+   "Phantom Thief" tag can overflow without being clipped */
+.name-plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  clip-path: var(--clip-card);
+  z-index: -1;
 }
 .name {
   font-family: var(--font-display);
